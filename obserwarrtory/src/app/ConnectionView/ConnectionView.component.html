@@ -1,0 +1,58 @@
+<div class="overlay_40" *ngIf="visible">
+  <mat-card [class.lightMild]="!this.darkMode" [class.darkMild]="this.darkMode">
+    <mat-card class="card_margin">
+      <mat-card-title>Current Connection</mat-card-title>
+      <p></p>
+      <mat-list>
+        <mat-list-item><b>My Alias:</b> &nbsp;{{currentAlias}}</mat-list-item>
+        <mat-list-item><b>Target Adress:</b>  &nbsp;{{currentAddress}}</mat-list-item>
+        <mat-list-item><b>Status:</b>  &nbsp;
+            <mat-label *ngIf="backendConnected">Connected</mat-label>
+            <mat-icon *ngIf="backendConnected" style="color: green">
+              check_circle
+            </mat-icon>
+
+          <mat-label *ngIf="!backendConnected">Disconnected</mat-label>
+            <mat-icon *ngIf="!backendConnected" style="color: red">
+              disabled_by_default
+            </mat-icon>
+
+        </mat-list-item>
+      </mat-list>
+        <button mat-stroked-button *ngIf="backendConnected" (click)="disconnect()">DISCONNECT</button>
+    </mat-card>
+    <mat-card class="card_margin">
+
+      <mat-card-title>New Connection</mat-card-title>
+      <p></p>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Alias</mat-label>
+        <input matInput type="text" [(ngModel)]="newAlias">
+      </mat-form-field>
+      <p></p>
+      <mat-form-field appearance="fill">
+        <mat-label>URL/IP</mat-label>
+        <input matInput type="text" [(ngModel)]="newAddress">
+      </mat-form-field>
+
+
+      <section>
+        <button mat-stroked-button style="" (click)="connectToAddress()">CONNECT</button>
+      </section>
+    </mat-card>
+
+    <mat-card class="card_margin">
+      <mat-card-title>Clients</mat-card-title>
+      <p></p>
+      <mat-card-subtitle>WebApp instances connected to current Backend</mat-card-subtitle>
+      <li *ngFor="let client of clients; index as i" class="noMarker">
+        <mat-icon>person</mat-icon>
+        {{client}}
+      </li>
+
+
+
+    </mat-card>
+  </mat-card>
+</div>

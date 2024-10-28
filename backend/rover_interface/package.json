@@ -1,0 +1,14 @@
+{
+  "name": "rover_interface",
+  "version": "1.0.0",
+  "description": "Modul that enables interaction with the rover",
+  "main": "gs_interface_test.ts",
+  "scripts": {
+    "test": "gs_interface_test.ts"
+  },
+  "author": "Ruslan Mammadov",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^3.0.5"
+  }
+}

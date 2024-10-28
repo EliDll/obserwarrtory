@@ -1,0 +1,56 @@
+
+<div class="toolbar">
+  <mat-toolbar style="width:80%; float: left; background-color: #0D47A1; color: white">
+
+    <a [routerLink]="['../']"
+       style="padding: 10px 31px 10px 16px; font-size: 25px; margin-right: 21px; border-right: 2px;
+       border-color: white; border-style: none solid none none; text-decoration: none; color: white;">
+      OBSER<strong>WARR</strong>TORY
+   </a>
+
+    <a routerLink="/motors" routerLinkActive="menuSelected" class="menuLink">Motor Control</a>
+    <a routerLink="/monitoring" routerLinkActive="menuSelected" class="menuLink">Monitoring</a>
+    <a routerLink="/steering" routerLinkActive="menuSelected" class="menuLink">Steering</a>
+    <a routerLink="/sintering" routerLinkActive="menuSelected" class="menuLink">Sintering</a>
+    <a routerLink="/state" routerLinkActive="menuSelected" class="menuLink">State Control</a>
+
+  </mat-toolbar>
+  <mat-toolbar style="width:20%; background-color: #0D47A1; color: white; overflow: hidden; display: grid; place-items: center center; grid-template-columns: auto auto auto;">
+
+    <div style="display: grid; grid-template-columns: auto auto auto;">
+      <mat-icon style="padding-right: 10px">brightness_5</mat-icon>
+      <mat-slide-toggle style="padding-right: 10px" [formControl]="toggleControl">
+      </mat-slide-toggle>
+      <mat-icon>bedtime</mat-icon>
+    </div>
+
+    <mat-icon *ngIf="roverConnectionActive" class="activate" style="transform: scale(1.5,1.5)">sensors</mat-icon>
+    <mat-icon *ngIf="!roverConnectionActive" class="deactivate" style="transform: scale(1.5,1.5)">sensors_off</mat-icon>
+
+    <button mat-icon-button class="butt" style="transform: scale(1.5,1.5)"
+            (click)="toggleConnectionOverlay()">
+      <mat-icon [class.activate]="backendConnectionActive" [class.deactivate]="!backendConnectionActive">mediation</mat-icon>
+    </button>
+
+<!--    <mat-card *ngIf="jsonOverlay">-->
+<!--      <button mat-icon-button class="butt" style="transform: scale(1.5,1.5)" (click)="toggleJsonOverlay()">-->
+<!--        <mat-label>&#123;...&#125;</mat-label>-->
+<!--      </button>-->
+<!--    </mat-card>-->
+<!--    <button mat-icon-button *ngIf="!jsonOverlay" class="butt" style="transform: scale(1.5,1.5)"-->
+<!--            (click)="toggleJsonOverlay()">-->
+<!--      <mat-label>&#123;...&#125;</mat-label>-->
+<!--    </button>-->
+
+  </mat-toolbar>
+</div>
+
+<app-terminal-view *ngIf="jsonOverlay"></app-terminal-view>
+<app-connection-view [visible]=connectionOverlay></app-connection-view>
+
+<!-- The routed views render in the <router-outlet>-->
+<router-outlet (activate)="toggleRouterState(true)" (deactivate)="toggleRouterState(false)"></router-outlet>
+<div *ngIf="!routerEnabled" [class.darkMild]="this.darkMode" style ="position: absolute; top: 64px; bottom: 0px; width: 100%">
+  <img src="assets/img/obserwarrtory.svg" style="width: 100%; height: 70vh; padding-top: 30px; padding-bottom: 30px" />
+  <p style="width: 100%; text-align: center; font-size: 40px; padding-top: 30px">Hier könnte Ihre Werbung stehen</p>
+</div>

@@ -1,0 +1,25 @@
+stages:
+  - build
+  - deploy
+
+docker_build:
+  stage: build
+  tags:
+    - shell
+  script:
+    - docker build -t $DOCKER_REGISTRY:obserwarrtory_frontend ./obserwarrtory
+    - docker build -t $DOCKER_REGISTRY:obserwarrtory_backend .
+
+docker_deploy:
+  stage: deploy
+  tags:
+    - shell
+  script:
+    - docker login -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY
+
+    - docker push $DOCKER_REGISTRY:obserwarrtory_frontend
+    - docker push $DOCKER_REGISTRY:obserwarrtory_backend
+
+    - docker logout $DOCKER_REGISTRY
+  only:
+    - master

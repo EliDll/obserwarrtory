@@ -1,0 +1,51 @@
+<div class="sidebar_15" [class.darkMild]="this.darkMode">
+  <mat-card class="card_margin">
+    <mat-card-title>Plot</mat-card-title>
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [(ngModel)]="plotNameInput">
+    </mat-form-field>
+    <button mat-stroked-button color="green" style="margin-left: 10px" class="activate"
+            (click)="generateComponent('PLOT')">ADD
+    </button>
+  </mat-card>
+
+  <p></p>
+
+  <mat-card class="card_margin">
+    <mat-card-title>Bargraph</mat-card-title>
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" [(ngModel)]="barNameInput">
+    </mat-form-field>
+    <button mat-stroked-button color="green" style="margin-left: 10px" class="activate"
+            (click)="generateComponent('BAR')">ADD
+    </button>
+  </mat-card>
+  <button mat-icon-button (click)="saveCurrentLayout()">
+    <mat-icon>
+      save
+    </mat-icon>
+  </button>
+  <p></p>
+  <button mat-stroked-button color="green" style="margin-left: 10px" class="activate"
+          (click)="toggleGenerator()" *ngIf="!streamEnabled">
+    <mat-icon>
+      play_arrow
+    </mat-icon>
+    START DATA GENERATOR
+  </button>
+  <button mat-stroked-button color="green" style="margin-left: 10px" class="activate"
+          (click)="toggleGenerator()" *ngIf="streamEnabled">
+    <mat-icon>
+      pause
+    </mat-icon>
+    STOP DATA GENERATOR
+  </button>
+
+
+</div>
+
+<div class="content_85" [class.dark]="this.darkMode">
+  <golden-layout-root [layout]="layoutConfig$"></golden-layout-root>
+</div>

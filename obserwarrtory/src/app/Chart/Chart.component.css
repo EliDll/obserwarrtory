@@ -1,0 +1,36 @@
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(100px, 95%) auto;
+
+}
+
+.menu {
+  z-index: 2;
+
+}
+
+.invisible{
+  display: none;
+}
+
+
+.side {
+
+}
+
+.sideElem {
+  display: grid;
+  place-items: start end;
+  grid-template-rows: 30px auto;
+}
+
+.settings {
+  display: grid;
+  place-items: start end;
+}
+
+.settingsItem {
+  display: grid;
+}
+

@@ -1,0 +1,182 @@
+import {MotorEnum, SensorEnum} from "./Enums";
+
+export const sensors = [{
+  id: "PL",
+  children: [
+    {id: "surface_temp"},
+    {id: "surface_dist"},
+    {id: "solar_tracking_angle_err"},
+    {id: "pl_chip_temp"},
+  ]
+},
+  {
+    id: "EPS",
+    children: [
+      {id: "input_voltage"},
+      {id: "output_voltage"},
+      {id: "total_current"},
+      {id: "battery_temp"},
+      {id: "env_temp"},
+    ]
+  },
+  {
+    id: "ESC",
+    children: [
+      {
+        // only needed for steering motors
+        id: "Steering Angle",
+        children: [
+          {id: "front_l_angle"},
+          {id: "front_r_angle"},
+          {id: "mid_l_angle"},
+          {id: "mid_r_angle"},
+          {id: "rear_l_angle"},
+          {id: "rear_r_angle"},
+        ]
+      },
+      {
+        // only needed for driving motors
+        id: "Driving Velocity",
+        children: [
+          {id: "front_l_vel"},
+          {id: "front_r_vel"},
+          {id: "mid_l_vel"},
+          {id: "mid_r_vel"},
+          {id: "rear_l_vel"},
+          {id: "rear_r_vel"},
+        ]
+      },
+      {
+        id: "Current",
+        children: [
+          {id: "front_l_drive_amp"},
+          {id: "front_r_drive_amp"},
+          {id: "mid_l_drive_amp"},
+          {id: "mid_r_drive_amp"},
+          {id: "rear_l_drive_amp"},
+          {id: "rear_r_drive_amp"},
+          {id: "front_l_steer_amp"},
+          {id: "front_r_steer_amp"},
+          {id: "mid_l_steer_amp"},
+          {id: "mid_r_steer_amp"},
+          {id: "rear_l_steer_amp"},
+          {id: "rear_r_steer_amp"},
+        ]
+      },
+      {
+        id: "Temperature",
+        children: [
+          {id: "front_l_drive_temp"},
+          {id: "front_r_drive_temp"},
+          {id: "mid_l_drive_temp"},
+          {id: "mid_r_drive_temp"},
+          {id: "rear_l_drive_temp"},
+          {id: "rear_r_drive_temp"},
+          {id: "front_l_steer_temp"},
+          {id: "front_r_steer_temp"},
+          {id: "mid_l_steer_temp"},
+          {id: "mid_r_steer_temp"},
+          {id: "rear_l_steer_temp"},
+          {id: "rear_r_steer_temp"},
+        ]
+      }
+    ]
+  }];
+
+export const sensorMapRev: Map<SensorEnum, string> = new Map([
+  [SensorEnum.surface_temp, "surface_temp"],
+  [SensorEnum.surface_dist, "surface_dist"],
+  [SensorEnum.solar_tracking_angle_err, "solar_tracking_angle_err"],
+  [SensorEnum.pl_chip_temp, "pl_chip_temp"],
+  [SensorEnum.input_voltage, "input_voltage"],
+  [SensorEnum.output_voltage, "output_voltage"],
+  [SensorEnum.total_current, "total_current"],
+  [SensorEnum.battery_temp, "battery_temp"],
+  [SensorEnum.env_temp, "env_temp"],
+  [SensorEnum.front_l_angle, "front_l_angle"],
+  [SensorEnum.front_r_angle, "front_r_angle"],
+  [SensorEnum.mid_l_angle, "mid_l_angle"],
+  [SensorEnum.mid_r_angle, "mid_r_angle"],
+  [SensorEnum.rear_l_angle, "rear_l_angle"],
+  [SensorEnum.rear_r_angle, "rear_r_angle"],
+  [SensorEnum.front_l_vel, "front_l_vel"],
+  [SensorEnum.front_r_vel, "front_r_vel"],
+  [SensorEnum.mid_l_vel, "mid_l_vel"],
+  [SensorEnum.mid_r_vel, "mid_r_vel"],
+  [SensorEnum.rear_l_vel, "rear_l_vel"],
+  [SensorEnum.rear_r_vel, "rear_r_vel"],
+  [SensorEnum.front_l_drive_amp, "front_l_drive_amp"],
+  [SensorEnum.front_r_drive_amp, "front_r_drive_amp"],
+  [SensorEnum.mid_l_drive_amp, "mid_l_drive_amp"],
+  [SensorEnum.mid_r_drive_amp, "mid_r_drive_amp"],
+  [SensorEnum.rear_l_drive_amp, "rear_l_drive_amp"],
+  [SensorEnum.rear_r_drive_amp, "rear_r_drive_amp"],
+  [SensorEnum.front_l_steer_amp, "front_l_steer_amp"],
+  [SensorEnum.front_r_steer_amp, "front_r_steer_amp"],
+  [SensorEnum.mid_l_steer_amp, "mid_l_steer_amp"],
+  [SensorEnum.mid_r_steer_amp, "mid_r_steer_amp"],
+  [SensorEnum.rear_l_steer_amp, "rear_l_steer_amp"],
+  [SensorEnum.rear_r_steer_amp, "rear_r_steer_amp"],
+  [SensorEnum.front_l_drive_temp, "front_l_drive_temp"],
+  [SensorEnum.front_r_drive_temp, "front_r_drive_temp"],
+  [SensorEnum.mid_l_drive_temp, "mid_l_drive_temp"],
+  [SensorEnum.mid_r_drive_temp, "mid_r_drive_temp"],
+  [SensorEnum.rear_l_drive_temp, "rear_l_drive_temp"],
+  [SensorEnum.rear_r_drive_temp, "rear_r_drive_temp"],
+  [SensorEnum.front_l_steer_temp, "front_l_steer_temp"],
+  [SensorEnum.front_r_steer_temp, "front_r_steer_temp"],
+  [SensorEnum.mid_l_steer_temp, "mid_l_steer_temp"],
+  [SensorEnum.mid_r_steer_temp, "mid_r_steer_temp"],
+  [SensorEnum.rear_l_steer_temp, "rear_l_steer_temp"],
+  [SensorEnum.rear_r_steer_temp, "rear_r_steer_temp"],
+]);
+
+export const sensorMap: Map<string, SensorEnum> = new Map([
+  ["surface_temp", SensorEnum.surface_temp],
+  ["surface_dist", SensorEnum.surface_dist],
+  ["solar_tracking_angle_err", SensorEnum.solar_tracking_angle_err],
+  ["pl_chip_temp", SensorEnum.pl_chip_temp],
+  ["input_voltage", SensorEnum.input_voltage],
+  ["output_voltage", SensorEnum.output_voltage],
+  ["total_current", SensorEnum.total_current],
+  ["battery_temp", SensorEnum.battery_temp],
+  ["env_temp", SensorEnum.env_temp],
+  ["front_l_angle", SensorEnum.front_l_angle],
+  ["front_r_angle", SensorEnum.front_r_angle],
+  ["mid_l_angle", SensorEnum.mid_l_angle],
+  ["mid_r_angle", SensorEnum.mid_r_angle],
+  ["rear_l_angle", SensorEnum.rear_l_angle],
+  ["rear_r_angle", SensorEnum.rear_r_angle],
+  ["front_l_vel", SensorEnum.front_l_vel],
+  ["front_r_vel", SensorEnum.front_r_vel],
+  ["mid_l_vel", SensorEnum.mid_l_vel],
+  ["mid_r_vel", SensorEnum.mid_r_vel],
+  ["rear_l_vel", SensorEnum.rear_l_vel],
+  ["rear_r_vel", SensorEnum.rear_r_vel],
+  ["front_l_drive_amp", SensorEnum.front_l_drive_amp],
+  ["front_r_drive_amp", SensorEnum.front_r_drive_amp],
+  ["mid_l_drive_amp", SensorEnum.mid_l_drive_amp],
+  ["mid_r_drive_amp", SensorEnum.mid_r_drive_amp],
+  ["rear_l_drive_amp", SensorEnum.rear_l_drive_amp],
+  ["rear_r_drive_amp", SensorEnum.rear_r_drive_amp],
+  ["front_l_steer_amp", SensorEnum.front_l_steer_amp],
+  ["front_r_steer_amp", SensorEnum.front_r_steer_amp],
+  ["mid_l_steer_amp", SensorEnum.mid_l_steer_amp],
+  ["mid_r_steer_amp", SensorEnum.mid_r_steer_amp],
+  ["rear_l_steer_amp", SensorEnum.rear_l_steer_amp],
+  ["rear_r_steer_amp", SensorEnum.rear_r_steer_amp],
+  ["front_l_drive_temp", SensorEnum.front_l_drive_temp],
+  ["front_r_drive_temp", SensorEnum.front_r_drive_temp],
+  ["mid_l_drive_temp", SensorEnum.mid_l_drive_temp],
+  ["mid_r_drive_temp", SensorEnum.mid_r_drive_temp],
+  ["rear_l_drive_temp", SensorEnum.rear_l_drive_temp],
+  ["rear_r_drive_temp", SensorEnum.rear_r_drive_temp],
+  ["front_l_steer_temp", SensorEnum.front_l_steer_temp],
+  ["front_r_steer_temp", SensorEnum.front_r_steer_temp],
+  ["mid_l_steer_temp", SensorEnum.mid_l_steer_temp],
+  ["mid_r_steer_temp", SensorEnum.mid_r_steer_temp],
+  ["rear_l_steer_temp", SensorEnum.rear_l_steer_temp],
+  ["rear_r_steer_temp", SensorEnum.rear_r_steer_temp],
+]);
+
+

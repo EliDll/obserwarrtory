@@ -1,0 +1,163 @@
+<div class="sidebar_15" [class.darkMild]="this.darkMode">
+</div>
+
+<div class="content_85" [class.dark]="this.darkMode" [class.lightMild]="!this.darkMode" style="display: grid; grid-template-columns: auto 50%; place-items: start stretch;">
+
+<div>
+    <mat-card class="card_margin" >
+      <mat-card-title>Power
+      <mat-icon>
+        offline_bolt
+      </mat-icon>
+      </mat-card-title>
+      <mat-divider></mat-divider>
+      <br>
+      <button mat-stroked-button class="activate" (click)="queueRestart()">
+        <mat-icon style="color: orange">
+          restart_alt
+        </mat-icon>
+        Restart</button>
+      <button mat-stroked-button class="activate" *ngIf="restartPending" style="background-color: orange; color: white" (click)="restart()">
+        CONFIRM</button>
+      <br>
+      <br>
+      <button mat-stroked-button class="activate" (click)="queueShutdown()">
+        <mat-icon style="color: red">
+          power_settings_new
+        </mat-icon>
+        Shutdown</button>
+      <button mat-stroked-button class="activate" *ngIf="shutdownPending" style="background-color: red; color: white" (click)="shutdown()">
+        CONFIRM</button>
+      <br><br>
+      <mat-divider></mat-divider>
+      <br>
+      <mat-slide-toggle [(ngModel)]="rail48V" (change)="toggle48VRail()">
+        Toggle 48V Rail
+      </mat-slide-toggle>
+    </mat-card>
+
+  <mat-card class="card_margin">
+    <mat-card-title>Sun-Tracking
+      <mat-icon>
+        brightness_high
+      </mat-icon></mat-card-title>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-radio-group [(ngModel)]="suntrackingState" (change)="changeSuntracking()" style="place-items: center start; display: grid; grid-template-columns: minmax(75px, 5%) auto">
+      <mat-radio-button value="park">
+        Park
+
+      </mat-radio-button>
+      <mat-icon class="bigIcon" style="color: orange;">
+        replay_circle_filled
+      </mat-icon>
+
+      <mat-radio-button value="on">
+        On
+      </mat-radio-button>
+      <mat-icon class="bigIcon" style="color: green;">
+        play_circle
+      </mat-icon>
+
+      <mat-radio-button value="off">
+        Off
+      </mat-radio-button>
+
+
+      <mat-icon class="bigIcon" style="color: red;">
+        pause_circle
+      </mat-icon>
+
+    </mat-radio-group>
+  </mat-card>
+</div>
+
+  <mat-card class="card_margin">
+    <mat-card-title>DOSIS Instruction
+      <mat-icon>
+        dashboard_customize
+      </mat-icon></mat-card-title>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-form-field appearance="fill" style="padding-right: 20px">
+      <mat-label>Message Type</mat-label>
+      <mat-select [(value)]="selectedDMSGType">
+        <mat-option *ngFor="let type of DMSGTypes" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="padding-right: 20px">
+      <mat-label>Command ID</mat-label>
+      <input matInput type="number" [(ngModel)]="DMSGCmdID" min=0 [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="padding-right: 20px">
+      <mat-label>Module Number</mat-label>
+      <input matInput type="number" [(ngModel)]="DMSGModuleID" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+    <button mat-stroked-button class="activate" (click)="sendDosis()">
+      <mat-icon>
+        send
+      </mat-icon>
+      SEND</button>
+    <br>
+    <mat-divider></mat-divider>
+    <div style="padding-bottom: 20px"></div>
+    <li *ngFor="let obj of DMSGValues; index as i" class="noMarker">
+            <mat-form-field appearance="fill" style="padding-right: 20px" >
+              <mat-label>Value Type</mat-label>
+              <mat-select [(value)]="obj.type" (selectionChange)="castValue(i, $event.value)">
+                <mat-option *ngFor="let type of CppTypeArray" [value]="type" >
+                  {{type}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="obj.type !== 'STRING'" appearance="fill" style="padding-right: 20px">
+              <mat-label>Value</mat-label>
+              <input matInput type="number" [(ngModel)]="obj.value">
+            </mat-form-field>
+            <mat-form-field *ngIf="obj.type === 'STRING'" appearance="fill" style="padding-right: 20px">
+              <mat-label>String</mat-label>
+              <input matInput type="text" [(ngModel)]="obj.value">
+            </mat-form-field>
+            <button mat-icon-button class="activate" (click)="removeDosisValue(i)">
+              <mat-icon>
+                close
+              </mat-icon></button>
+          </li>
+
+
+<!--    <li *ngFor="let value of DMSGValues; index as i" class="noMarker">-->
+<!--      <mat-form-field appearance="fill" style="padding-right: 20px" >-->
+<!--        <mat-label>Value Type</mat-label>-->
+<!--        <mat-select [(value)]="DMSGValueTypes[i]" (selectionChange)="changeDosisValueType(i, $event.value)" >-->
+<!--          <mat-option *ngFor="let type of CppTypeArray" [value]="type" >-->
+<!--            {{type}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field *ngIf="DMSGValueTypes[i] !== 'STRING'" appearance="fill" style="padding-right: 20px">-->
+<!--        <mat-label>Value</mat-label>-->
+<!--        <input matInput type="number" [value]=DMSGValues[i] (change)="setDMSGNumber(i, nr.value)" #nr>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field *ngIf="DMSGValueTypes[i] === 'STRING'" appearance="fill" style="padding-right: 20px">-->
+<!--        <mat-label>String</mat-label>-->
+<!--        <input matInput type="text" [value]=DMSGValues[i] (change)="setDMSGString(i, str.value)" #str >-->
+<!--      </mat-form-field>-->
+<!--      <button mat-icon-button class="activate" (click)="removeDosisValue(i)">-->
+<!--        <mat-icon>-->
+<!--          close-->
+<!--        </mat-icon></button>-->
+<!--    </li>-->
+
+
+
+    <button mat-stroked-button class="activate" (click)="addDosisValue()">
+      <mat-icon>
+        add
+      </mat-icon>
+      ADD VALUE</button>
+
+  </mat-card>
+
+</div>

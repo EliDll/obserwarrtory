@@ -1,0 +1,130 @@
+<div class="sidebar_15" [class.darkMild]="this.darkMode">
+  <mat-card class="card_margin">
+    <mat-card-title>Hybrid Steering</mat-card-title>
+  </mat-card>
+  <button mat-stroked-button color="green" style="margin-left: 10px" class="activate"
+          (click)="toggleGamepadInput()" *ngIf="!gamepadInputEnabled">
+    <mat-icon style="margin-right: 10px">
+      videogame_asset
+    </mat-icon>
+    ENABLE GAMEPAD INPUT
+  </button>
+  <button mat-stroked-button color="green" style="margin-left: 10px" class="activate"
+          (click)="toggleGamepadInput()" *ngIf="gamepadInputEnabled">
+    <mat-icon style="margin-right: 10px">
+      videogame_asset_off
+    </mat-icon>
+    DISABLE GAMEPAD INPUT
+  </button>
+
+</div>
+<div class="content_85" [class.dark]="this.darkMode" [class.lightMild]="!this.darkMode">
+  <div class="halfWidthSection">
+    <div>
+      <mat-card class="card_margin">
+        <mat-label>
+          Distance X
+        </mat-label>
+        <div style="display: grid; grid-template-columns: auto 0px auto auto; place-items: center start">
+          <mat-slider (input)="distanceX = $event.value; drawChange()"
+                      [value]="distanceX" min="-200" max="200" tickInterval="1"></mat-slider>
+          <button mat-icon-button (click)="distanceX = 0;drawChange()">
+            <mat-icon>
+              refresh
+            </mat-icon>
+          </button>
+          <mat-form-field style="width: 25%; margin: auto">
+            <mat-label>cm</mat-label>
+            <input matInput type="number" [(ngModel)]="distanceX" (change)="drawChange()">
+          </mat-form-field>
+          <div></div>
+        </div>
+      </mat-card>
+
+      <mat-card class="card_margin">
+        <mat-label>
+          Distance Y
+        </mat-label>
+        <div style="display: grid; grid-template-columns: auto 0px auto auto; place-items: center start">
+          <mat-slider (input)="distanceY = $event.value; drawChange()"
+                      [value]="distanceY" min="-200" max="200" tickInterval="1"></mat-slider>
+          <button mat-icon-button (click)="distanceY = 0;drawChange()">
+            <mat-icon>
+              refresh
+            </mat-icon>
+          </button>
+          <mat-form-field style="width: 25%; margin: auto">
+            <mat-label>cm</mat-label>
+            <input matInput type="number" [(ngModel)]="distanceY" (change)="drawChange()">
+          </mat-form-field>
+          <div></div>
+        </div>
+      </mat-card>
+
+      <mat-card class="card_margin">
+        <mat-label>
+          Angle
+        </mat-label>
+        <p></p>
+        <div style="display: grid; grid-template-columns: auto 0px auto auto; place-items: center start">
+        <mat-slider (input)="angle = $event.value; drawChange()"
+                    [value]="angle" min="-360" max="360" tickInterval="1"></mat-slider>
+        <button mat-icon-button (click)="angle = 0;drawChange()">
+          <mat-icon>
+            refresh
+          </mat-icon>
+        </button>
+          <mat-form-field style="width: 25%; margin: auto">
+          <mat-label>deg</mat-label>
+        <input matInput type="number" [(ngModel)]="angle" (change)="drawChange()">
+          </mat-form-field>
+          <div></div>
+        </div>
+
+      </mat-card>
+      <mat-card class="card_margin">
+        Calculated Radius: {{radius.toFixed()}}
+      </mat-card>
+
+
+      <mat-card class="card_margin">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <mat-label>Timeout [s]</mat-label>
+            <input matInput type="number" [(ngModel)]="timeout" min=0 [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+
+          <p></p>
+
+          <mat-form-field class="example-full-width">
+            <mat-label>Delay [s]</mat-label>
+            <input matInput type="number" [(ngModel)]="delay" min=0 [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+
+          <section>
+            <button mat-stroked-button class="activate" (click)="transmitCommand()">
+              <mat-icon>
+                send
+              </mat-icon>
+              SEND</button>
+          </section>
+        </form>
+      </mat-card>
+
+
+
+
+    </div>
+    <div class="rightHalf">
+      <mat-card class="p5wrapper">
+        <div id="p5container">
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+
+
+
+</div>
+

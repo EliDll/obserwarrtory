@@ -1,0 +1,18 @@
+<section class="container" [class.darkMild]="this.darkMode">
+  <div class="sidebar_15" [class.darkMild]="this.darkMode">
+    <mat-card class="card_margin">
+
+        <app-tree-navigation [treeTemplate]=treeSpec [cachedTree]="cachedTree" (treeDestroy)="cacheTree($event)" (treeChange)="updateGL($event)"></app-tree-navigation>
+
+    </mat-card>
+    <button mat-icon-button (click)="saveCurrentLayout()">
+      <mat-icon>
+        save
+      </mat-icon>
+    </button>
+
+  </div>
+  <div class="content_85" [class.dark]="this.darkMode">
+      <golden-layout-root [layout]="layoutConfig$" ></golden-layout-root>
+  </div>
+</section>

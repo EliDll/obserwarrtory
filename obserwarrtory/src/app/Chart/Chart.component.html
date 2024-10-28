@@ -1,0 +1,62 @@
+<div class="wrapper">
+  <div class="canvas">
+    <canvas #plotChart></canvas>
+  </div>
+  <div class="side">
+    <div [class.menu]="treeVisible" class="sideElem">
+      <button mat-icon-button class="butt" (click)="toggleTreeVisibility()">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeVisible ? 'close' : 'bar_chart'}}
+        </mat-icon>
+      </button>
+      <mat-card class="card_margin" [class.invisible]="!treeVisible">
+        <app-tree-navigation [treeTemplate]=treeSpec [cachedTree]="cachedTree" (treeDestroy)="cacheTree($event)" (treeChange)="configureDatasets($event)"></app-tree-navigation>
+      </mat-card>
+    </div>
+    <div [class.menu]="treeVisible" class="sideElem">
+      <button mat-icon-button class="butt" (click)="toggleSettingsVisibility()">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{settingsVisible ? 'close' : 'settings'}}
+        </mat-icon>
+      </button>
+
+      <mat-card class="card_margin" clas="settings" *ngIf="settingsVisible">
+        <div class="settingsItem" *ngIf="type==='PLOT'">
+          <mat-form-field>
+            <mat-label>Number of Timestamps</mat-label>
+            <input matInput type="number" [(ngModel)]="nTimestamps" (change)=clearChartData()>
+          </mat-form-field>
+        </div>
+        <div class="settingsItem">
+          <mat-slide-toggle [(ngModel)]="fixedScaling" (change)=setAxis()>Fixed Axis Range</mat-slide-toggle>
+          <mat-form-field *ngIf="fixedScaling">
+            <mat-label>Axis Minimum</mat-label>
+            <input matInput type="number" [(ngModel)]="axisMin" (change)=setAxis()>
+          </mat-form-field>
+          <mat-form-field *ngIf="fixedScaling">
+            <mat-label>Axis Maximum</mat-label>
+            <input matInput type="number" [(ngModel)]="axisMax" (change)=setAxis()>
+          </mat-form-field>
+        </div>
+        <div class="settingsItem">
+          <mat-slide-toggle [(ngModel)]="minThresh" (change)=setMinThresh()>Minimum Threshold</mat-slide-toggle>
+          <mat-form-field *ngIf="minThresh">
+            <mat-label>Threshold Value</mat-label>
+            <input matInput type="number" [(ngModel)]="minThreshVal" (change)=setMinThresh()>
+          </mat-form-field>
+        </div>
+        <div class="settingsItem">
+          <mat-slide-toggle [(ngModel)]="maxThresh" (change)=setMaxThresh()>Maximum Threshold</mat-slide-toggle>
+          <mat-form-field *ngIf="maxThresh">
+            <mat-label>Threshold Value</mat-label>
+            <input matInput type="number" [(ngModel)]="maxThreshVal" (change)=setMaxThresh()>
+          </mat-form-field>
+        </div>
+
+
+      </mat-card>
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,91 @@
+<div class="container">
+  <mat-card class="card_margin">
+    <mat-card-title>{{id}}</mat-card-title>
+    <mat-label> Command Type:
+      <mat-button-toggle-group (change)=switchMode($event.value)>
+        <mat-button-toggle value="VEL" [class.mat-button-toggle-checked]="this.mode==='POS'">POS</mat-button-toggle>
+        <mat-button-toggle value="POS" [class.mat-button-toggle-checked]="this.mode==='VEL'">VEL</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-label>
+  </mat-card>
+
+
+  <p></p>
+  <p></p>
+  <div style="display: grid; grid-template-columns: auto auto; place-items: start center;">
+    <div>
+      <canvas #gaugeCanvas style=""></canvas>
+
+      <div *ngIf="this.mode==='POS'"
+           style="display: grid; grid-template-columns: 15% auto auto auto auto 15%; place-items: center center">
+        <div></div>
+        <mat-slider (input)="posSlider = $event.value; drawChange()"
+                    [value]="posSlider" min="-180" max="180" tickInterval="1"></mat-slider>
+        <button mat-icon-button (click)=reset()>
+          <mat-icon>
+            refresh
+          </mat-icon>
+        </button>
+        <input type="number" [(ngModel)]="posSlider" (change)="drawChange()" class="smol">
+        <div style="display:grid; grid-template-columns: auto auto">
+          <mat-label *ngIf="posRelative"> Δ </mat-label> <mat-label> &nbsp;deg</mat-label>
+        </div>
+        <div></div>
+      </div>
+      <div *ngIf="this.mode === 'VEL'"
+           style="display: grid; grid-template-columns: 15% auto auto auto auto 15%; place-items: center center">
+        <div></div>
+        <mat-slider [value]="velSlider" (input)="velSlider = $event.value; drawChange()" min="0" max="100"
+                    tickInterval="1"></mat-slider>
+        <button mat-icon-button (click)="reset()">
+          <mat-icon>
+            refresh
+          </mat-icon>
+        </button>
+        <input type="number" [(ngModel)]="velSlider" (change)="drawChange()" class="smol">
+        <mat-label> %</mat-label>
+        <div></div>
+      </div>
+    </div>
+    <mat-card class="card_margin">
+      <div *ngIf="this.mode === 'POS'">
+        <mat-slide-toggle [(ngModel)]="posRelative"></mat-slide-toggle>
+        <mat-label> Relative (to current position)</mat-label>
+      </div>
+      <p></p>
+      <form class="example-form">
+
+        <div class="spacer"></div>
+        <mat-form-field class="example-full-width" *ngIf="this.mode==='POS'">
+          <mat-label>Velocity [%]</mat-label>
+          <input matInput type="number" [(ngModel)]="posMaxVel" min=0 max=100 [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+
+        <p></p>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Timeout [s]</mat-label>
+          <input matInput type="number" [(ngModel)]="timeout" min=0 [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+
+        <p></p>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Delay [s]</mat-label>
+          <input matInput type="number" [(ngModel)]="delay" min=0 [ngModelOptions]="{standalone: true}">
+        </mat-form-field>
+
+        <section>
+          <button mat-stroked-button class="activate" (click)="buildCommand()">
+            <mat-icon>
+              send
+            </mat-icon>
+            SEND</button>
+        </section>
+      </form>
+
+
+    </mat-card>
+  </div>
+
+</div>

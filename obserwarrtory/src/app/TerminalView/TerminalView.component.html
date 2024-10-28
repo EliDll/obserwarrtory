@@ -1,0 +1,75 @@
+<div class="overlay_40">
+  <mat-card style="background: #EEEEEE">
+<mat-card class="card_margin" >
+  <mat-card-title>Custom JSON Instruction</mat-card-title>
+  <p></p>
+  <mat-card-subtitle>Add Attribute</mat-card-subtitle>
+
+  <button mat-stroked-button class="activate" (click)="addAttribute(TYPE_NUMBER)" class="spaced">
+    <mat-icon>
+      format_list_numbered
+    </mat-icon>
+    Number
+  </button>
+  <button mat-stroked-button class="activate" (click)="addAttribute(TYPE_BOOLEAN)" class="spaced">
+    <mat-icon>
+      rule
+    </mat-icon>
+    Boolean
+  </button>
+
+  <button mat-stroked-button class="activate" (click)="addAttribute(TYPE_STRING)" class="spaced">
+    <mat-icon>
+      text_fields
+    </mat-icon>
+    String
+  </button>
+
+  <p></p>
+
+  <li *ngFor="let attribute of attributes; index as i" class="noMarker">
+
+
+    <mat-form-field appearance="fill">
+      <input matInput type="text" [(ngModel)]="attribute.key">
+    </mat-form-field>
+
+    <mat-icon *ngIf="attribute.type==TYPE_BOOLEAN" class="spaced">
+      rule
+    </mat-icon>
+    <mat-icon *ngIf="attribute.type==TYPE_STRING" class="spaced">
+      text_fields
+    </mat-icon>
+    <mat-icon *ngIf="attribute.type==TYPE_NUMBER" class="spaced">
+      format_list_numbered
+    </mat-icon>
+
+    <mat-form-field *ngIf="attribute.type==TYPE_BOOLEAN" appearance="fill">
+      <mat-select [(value)]="attribute.value">
+        <mat-option value=true>True</mat-option>
+        <mat-option value=false>False</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="attribute.type==TYPE_STRING" appearance="fill">
+      <input matInput type="text" [(ngModel)]="attribute.value">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="attribute.type==TYPE_NUMBER" appearance="fill">
+      <input matInput type="number" [(ngModel)]="attribute.value">
+    </mat-form-field>
+
+    <button mat-icon-button class="butt" (click)="removeAttribute(attribute.key)">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
+
+  </li>
+
+  <section class="spaced">
+    <button mat-stroked-button class="spaced" style="background: white" (click)="transmitCommand()">SEND</button>
+  </section>
+</mat-card>
+  </mat-card>
+</div>
